@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinit_scroll/src/data/models/post.dart';
@@ -67,12 +69,20 @@ class _PostsViewState extends State<PostsView> {
               if (index < posts.length) {
                 return ListTile(
                   title: Text(
-                    posts[index].title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    "${posts[index].id} - ${posts[index].title}",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(posts[index].body),
                 );
               } else {
+                Timer(Duration(milliseconds: 30), () {
+                  _scrollController.jumpTo(
+                    _scrollController.position.maxScrollExtent,
+                  );
+                });
                 return _circularProgressIndicator();
               }
             },
