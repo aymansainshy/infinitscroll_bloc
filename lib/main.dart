@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinit_scroll/src/data/api_services/posts_reader.dart';
 import 'package:infinit_scroll/src/data/repositories/posts_repository.dart';
-import 'package:infinit_scroll/src/data/services/posts_reader.dart';
 import 'package:infinit_scroll/src/logic/cubit/posts_cubit.dart';
 import 'package:infinit_scroll/src/view/views/posts_view.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:infinit_scroll/src/data/services/services.dart';
+import 'package:infinit_scroll/src/data/api_services/http_crud_classes.dart';
 
 class PostsReader implements Reader<List<dynamic>> {
   static const FETCH_LIMIT = 10;
