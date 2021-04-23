@@ -28,6 +28,8 @@ dependencies:
   flutter_bloc: any
   http: any
   shared_preferences: any
+  device_info: any
+
 
 
 dev_dependencies:
