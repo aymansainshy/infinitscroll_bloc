@@ -50,9 +50,11 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
     if (event is ToggleFavorite) {
       if (currentState is PostsLoadedSuccess) {
-        posts.firstWhere((e) => e.id == event.id).toggleFavorite();
 
-        yield PostsLoadedSuccess(posts: posts);
+       currentState.posts.firstWhere((e) => e.id == event.id).toggleFavorite();
+       final currentList = currentState.posts;
+
+       yield PostsLoadedSuccess(posts:currentList);
       }
     }
   }

@@ -79,6 +79,7 @@ class _PostsViewState extends State<PostsView2> {
                             context
                                 .read<PostsBloc>()
                                 .add(ToggleFavorite(id: state.posts[index].id));
+                            setState(() {});
                           },
                         ));
                   } else {

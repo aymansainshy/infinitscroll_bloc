@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinit_scroll/src/data/api_services/posts_reader.dart';
 import 'package:infinit_scroll/src/data/repositories/posts_repository.dart';
 import 'package:infinit_scroll/src/logic/bloc/posts_bloc/posts_bloc.dart';
+import 'package:infinit_scroll/src/logic/bloc/taggle_favorite/taggle_favorite_bloc.dart';
 import 'package:infinit_scroll/src/view/views/posts_view_copy.dart';
 
 void main() {
@@ -23,8 +24,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BlocProvider(
-        create: (context) => PostsBloc(postsRepository: postsRepository),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<PostsBloc>(
+            create: (context) => PostsBloc(postsRepository: postsRepository),
+          ),
+          BlocProvider<TaggleFavoriteBloc>(
+            create: (context) => TaggleFavoriteBloc(),
+          ),
+        ],
         child: PostsView2(),
       ),
     );
