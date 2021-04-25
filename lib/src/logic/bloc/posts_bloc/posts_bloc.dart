@@ -14,11 +14,16 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
   final PostsRepository postsRepository;
 
   int page = 1;
+
   @override
-  Stream<PostsState> mapEventToState(
-    PostsEvent event,
-  ) async* {
+  Stream<PostsState> mapEventToState(PostsEvent event) async* {
     final currentState = state;
+
+    if (event is FetchPosts && event.isRefresh) {
+      page = 1;
+      List<Post> posts = await postsRepository.fetchPosts(page);
+      yield PostsLoadedSuccess(posts: posts, noMoreData: posts.isEmpty);
+    }
 
     if (event is FetchPosts && !_hasReachedMax(state)) {
       if (currentState is PostsInitial) {
@@ -27,6 +32,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
         yield PostsLoadedSuccess(posts: posts, noMoreData: posts.isEmpty);
       }
     }
+
     if (event is FetchMorePosts && !_hasReachedMax(state)) {
       if (currentState is PostsLoadedSuccess) {
         page++;

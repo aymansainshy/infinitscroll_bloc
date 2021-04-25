@@ -1,5 +1,5 @@
+import 'package:infinit_scroll/src/data/models/device_model.dart';
 import 'package:infinit_scroll/src/lang/app_lang.dart';
-import 'package:infinit_scroll/src/models/device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Application {
