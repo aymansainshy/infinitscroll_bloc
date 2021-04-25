@@ -32,6 +32,7 @@ class _PostsViewState extends State<PostsView2> {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuilding ........");
     return Scaffold(
       appBar: AppBar(
         title: Text("Infinit Posts"),
