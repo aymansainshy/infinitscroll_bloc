@@ -1,5 +1,5 @@
 import 'package:infinit_scroll/src/data/api_services/interfaces_class.dart';
-import 'package:infinit_scroll/src/data/models/post.dart';
+import 'package:infinit_scroll/src/data/models/post_model.dart';
 
 class PostsRepository {
   PostsRepository(this.services);

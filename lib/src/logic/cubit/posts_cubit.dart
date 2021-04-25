@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:infinit_scroll/src/data/models/post.dart';
+import 'package:infinit_scroll/src/data/models/post_model.dart';
 import 'package:infinit_scroll/src/data/repositories/posts_repository.dart';
 
 part 'posts_state.dart';

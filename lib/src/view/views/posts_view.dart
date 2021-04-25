@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinit_scroll/src/data/models/post.dart';
+import 'package:infinit_scroll/src/data/models/post_model.dart';
 import 'package:infinit_scroll/src/logic/cubit/posts_cubit.dart';
 
 class PostsView extends StatefulWidget {
