@@ -5,16 +5,17 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:infinit_scroll/src/lang/app_local_dalegate.dart';
 
-class Translate {
+class AppLocalization {
   final Locale locale;
 
-  Translate(this.locale);
+  AppLocalization(this.locale);
 
-  static Translate of(BuildContext context) {
-    return Localizations.of<Translate>(context, Translate);
+  static AppLocalization of(BuildContext context) {
+    return Localizations.of<AppLocalization>(context, AppLocalization);
   }
 
-  static const LocalizationsDelegate<Translate> delegate = AppLocaleDelegate();
+  static const LocalizationsDelegate<AppLocalization> delegate =
+      AppLocaleDelegate();
 
   Map<String, String> _localizedStrings;
 

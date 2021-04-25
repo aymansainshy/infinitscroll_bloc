@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinit_scroll/src/lang/app_lang.dart';
-import 'package:infinit_scroll/src/lang/translate.dart';
+import 'package:infinit_scroll/src/lang/app_localazation.dart';
 
-class AppLocaleDelegate extends LocalizationsDelegate<Translate> {
+class AppLocaleDelegate extends LocalizationsDelegate<AppLocalization> {
   const AppLocaleDelegate();
 
   @override
@@ -11,8 +11,8 @@ class AppLocaleDelegate extends LocalizationsDelegate<Translate> {
   }
 
   @override
-  Future<Translate> load(Locale locale) async {
-    Translate localizations = Translate(locale);
+  Future<AppLocalization> load(Locale locale) async {
+    AppLocalization localizations = AppLocalization(locale);
     await localizations.load();
     return localizations;
   }
