@@ -61,15 +61,26 @@ class _PostsViewState extends State<PostsView2> {
                 itemBuilder: (context, index) {
                   if (index < state.posts.length) {
                     return ListTile(
-                      title: Text(
-                        "${state.posts[index].id} - ${state.posts[index].title}",
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                        title: Text(
+                          "${state.posts[index].id} - ${state.posts[index].title}",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      subtitle: Text(state.posts[index].body),
-                    );
+                        subtitle: Text(state.posts[index].body),
+                        trailing: IconButton(
+                          icon: Icon(
+                            state.posts[index].isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<PostsBloc>()
+                                .add(ToggleFavorite(id: state.posts[index].id));
+                          },
+                        ));
                   } else {
                     if (state is PostsLoadedSuccess && !state.noMoreData) {
                       Timer(Duration(milliseconds: 30), () {

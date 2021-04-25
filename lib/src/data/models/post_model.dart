@@ -4,12 +4,14 @@ class Post {
     this.id,
     this.title,
     this.body,
+    this.isFavorite = false,
   });
 
   int userId;
   int id;
   String title;
   String body;
+  bool isFavorite;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
         userId: json["userId"],
@@ -24,4 +26,8 @@ class Post {
         "title": title,
         "body": body,
       };
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+  }
 }

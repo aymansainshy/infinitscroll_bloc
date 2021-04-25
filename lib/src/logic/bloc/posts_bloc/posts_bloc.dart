@@ -14,6 +14,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
   final PostsRepository postsRepository;
 
   int page = 1;
+  List<Post> posts = [];
 
   @override
   Stream<PostsState> mapEventToState(PostsEvent event) async* {
@@ -21,14 +22,14 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
     if (event is FetchPosts && event.isRefresh) {
       page = 1;
-      List<Post> posts = await postsRepository.fetchPosts(page);
+      posts = await postsRepository.fetchPosts(page);
       yield PostsLoadedSuccess(posts: posts, noMoreData: posts.isEmpty);
     }
 
     if (event is FetchPosts && !_hasReachedMax(state)) {
       if (currentState is PostsInitial) {
         yield PostsInProgress();
-        List<Post> posts = await postsRepository.fetchPosts(page);
+        posts = await postsRepository.fetchPosts(page);
         yield PostsLoadedSuccess(posts: posts, noMoreData: posts.isEmpty);
       }
     }
@@ -36,7 +37,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     if (event is FetchMorePosts && !_hasReachedMax(state)) {
       if (currentState is PostsLoadedSuccess) {
         page++;
-        List<Post> posts = await postsRepository.fetchPosts(page);
+        posts = await postsRepository.fetchPosts(page);
 
         yield posts.isEmpty
             ? currentState.copyWith(noMoreData: posts.isEmpty)
@@ -44,6 +45,14 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
                 posts: currentState.posts + posts,
                 noMoreData: posts.isEmpty,
               );
+      }
+    }
+
+    if (event is ToggleFavorite) {
+      if (currentState is PostsLoadedSuccess) {
+        posts.firstWhere((e) => e.id == event.id).toggleFavorite();
+
+        yield PostsLoadedSuccess(posts: posts);
       }
     }
   }
