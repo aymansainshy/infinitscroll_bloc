@@ -1,16 +1,18 @@
 part of 'taggle_favorite_bloc.dart';
 
-class TaggleFavoriteState extends Equatable {
-  final Post post;
+class TaggleFavoriteState {
+  final bool isFavorite;
+  final String error;
 
-  TaggleFavoriteState({this.post});
+  TaggleFavoriteState({
+    this.isFavorite = false,
+    this.error,
+  });
 
-  TaggleFavoriteState copyWith({Post post}) {
+  TaggleFavoriteState copyWith({bool isFavorite, String error}) {
     return TaggleFavoriteState(
-      post: post ?? this.post,
+      isFavorite: isFavorite ?? this.isFavorite,
+      error: error ?? this.error,
     );
   }
-
-  @override
-  List<Object> get props => [post];
 }

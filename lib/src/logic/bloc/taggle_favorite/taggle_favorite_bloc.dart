@@ -11,14 +11,26 @@ class TaggleFavoriteBloc
     extends Bloc<TaggleFavoriteEvent, TaggleFavoriteState> {
   TaggleFavoriteBloc() : super(TaggleFavoriteState());
 
+  bool oldFav;
   @override
   Stream<TaggleFavoriteState> mapEventToState(
     TaggleFavoriteEvent event,
   ) async* {
-    if (event is SetFavotrite) {
-      final currentState = state;
-      currentState.post.toggleFavorite();
-      yield TaggleFavoriteState(post: currentState.post);
+    try {
+      if (event is SetFavotrite) {
+        oldFav = event.post.isFavorite;
+        print("Before - ${event.post.id} - $oldFav");
+        yield TaggleFavoriteState(isFavorite: !oldFav);
+        await event.post.toggleFavorite();
+        // yield TaggleFavoriteState(isFavorite: event.post.isFavorite);
+        print("After1 - ${event.post.id} - ${event.post.isFavorite}");
+      }
+    } on Exception catch (e) {
+      print("Error - $e");
+      if (event is SetFavotrite) {
+        print("AfterError - ${event.post.id} - ${event.post.isFavorite}");
+        yield state.copyWith(isFavorite: oldFav, error: e.toString());
+      }
     }
   }
 }

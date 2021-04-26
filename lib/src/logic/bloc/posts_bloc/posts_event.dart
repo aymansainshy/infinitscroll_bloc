@@ -15,11 +15,11 @@ class FetchPosts extends PostsEvent {
 
 class FetchMorePosts extends PostsEvent {}
 
-class ToggleFavorite extends PostsEvent {
-  final int id;
+// class ToggleFavorite extends PostsEvent {
+//   final int id;
 
-  ToggleFavorite({this.id});
+//   ToggleFavorite({this.id});
 
-   @override
-  List<Object> get props => [id];
-}
+//    @override
+//   List<Object> get props => [id];
+// }

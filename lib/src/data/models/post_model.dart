@@ -27,7 +27,17 @@ class Post {
         "body": body,
       };
 
-  void toggleFavorite() {
-    isFavorite = !isFavorite;
+  Future<void> toggleFavorite() async {
+    var oldStatus = isFavorite;
+    try {
+      isFavorite = !isFavorite;
+      await Future.delayed(Duration(milliseconds: 500), () {
+        print("Favorite Done ..");
+        // throw Exception();
+      });
+    } catch (e) {
+      isFavorite = oldStatus;
+      throw Exception();
+    }
   }
 }

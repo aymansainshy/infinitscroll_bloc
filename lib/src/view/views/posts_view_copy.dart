@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinit_scroll/src/logic/bloc/posts_bloc/posts_bloc.dart';
+import 'package:infinit_scroll/src/logic/bloc/taggle_favorite/taggle_favorite_bloc.dart';
 
 class PostsView2 extends StatefulWidget {
   @override
@@ -70,17 +71,36 @@ class _PostsViewState extends State<PostsView2> {
                           ),
                         ),
                         subtitle: Text(state.posts[index].body),
-                        trailing: IconButton(
-                          icon: Icon(
-                            state.posts[index].isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                          ),
-                          onPressed: () {
-                            context
-                                .read<PostsBloc>()
-                                .add(ToggleFavorite(id: state.posts[index].id));
-                            setState(() {});
+                        trailing: BlocConsumer<TaggleFavoriteBloc,
+                            TaggleFavoriteState>(
+                          listener: (context, isFavotite) {
+                            if (isFavotite is TaggleFavoriteState &&
+                                isFavotite.error != null) {
+                              Scaffold.of(context).hideCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  duration: Duration(milliseconds: 1000),
+                                  content: Text("Something Wrong !."),
+                                ),
+                              );
+                            }
+                          },
+                          builder: (context, isFavotite) {
+                            return IconButton(
+                              icon: Icon(
+                                state.posts[index].isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                              ),
+                              onPressed: () {
+                                context.read<TaggleFavoriteBloc>().add(
+                                      SetFavotrite(
+                                        post: state.posts[index],
+                                      ),
+                                    );
+                                // setState(() {});
+                              },
+                            );
                           },
                         ));
                   } else {
