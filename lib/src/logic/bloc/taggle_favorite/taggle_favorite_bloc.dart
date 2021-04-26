@@ -20,16 +20,18 @@ class TaggleFavoriteBloc
       if (event is SetFavotrite) {
         oldFav = event.post.isFavorite;
         print("Before - ${event.post.id} - $oldFav");
-        yield TaggleFavoriteState(isFavorite: !oldFav);
+        yield TaggleFavoriteState();
         await event.post.toggleFavorite();
+        print("After - ${event.post.id} - ${event.post.isFavorite}");
         // yield TaggleFavoriteState(isFavorite: event.post.isFavorite);
-        print("After1 - ${event.post.id} - ${event.post.isFavorite}");
+        /// We don't need to listen to [TaggleFavoriteState] value so we aren't yield to Ui
       }
     } on Exception catch (e) {
       print("Error - $e");
       if (event is SetFavotrite) {
         print("AfterError - ${event.post.id} - ${event.post.isFavorite}");
-        yield state.copyWith(isFavorite: oldFav, error: e.toString());
+        yield state.copyWith(error: e.toString());
+        // yield TaggleFavoriteState(error: e.toString()); also update the UI
       }
     }
   }

@@ -33,7 +33,7 @@ class Post {
       isFavorite = !isFavorite;
       await Future.delayed(Duration(milliseconds: 500), () {
         print("Favorite Done ..");
-        // throw Exception();
+        throw Exception();
       });
     } catch (e) {
       isFavorite = oldStatus;
