@@ -45,8 +45,10 @@ class _PostsViewState extends State<PostsView2> {
   Widget _builPostList() {
     return RefreshIndicator(
       onRefresh: () async {
+        context.read<PostsBloc>().add(FetchPosts(isRefresh: true));
+        // await PostsRepository(PostsReader()).fetchPosts(1); another Way ...
         await Future.delayed(Duration(milliseconds: 2000)).then((_) {
-          context.read<PostsBloc>().add(FetchPosts(isRefresh: true));
+          print("Refresh Done ....");
         });
       },
       child: Container(
